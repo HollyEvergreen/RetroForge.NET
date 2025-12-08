@@ -1,9 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>$(AssemblyName)</Title>
+    <RepositoryUrl>https://github.com/HollyEvergreen/RetroForge.NET.git</RepositoryUrl>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Copyright>All works using this API must include the following text in its credits &lt;All original code is the creation of the people in https://github.com/HollyEvergreen/RetroForge.NET/credits.md&gt; and any derivative works must use this licence</Copyright>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="OpenTK" Version="5.0.0-pre.15" />
+  </ItemGroup>
 </Project>
