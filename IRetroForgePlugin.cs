@@ -15,10 +15,11 @@ namespace RetroForge.NET;
 /// Runs The Plugin Behaviour
 /// </remarks>
 /// <param name="args"></param>
-public abstract class IRetroForgePlugin(Window window, string[] args)
+public abstract class IRetroForgePlugin
 {
-    protected readonly Window Window = window;
-    protected readonly string[] args = args;
+    public abstract IRetroForgePlugin SetFields(Window window, string[] args);
+    public Window Window;
+    public string[] args;
 
     public abstract void Update(FrameEventArgs frame_args);
     public abstract void Render(FrameEventArgs frame_args);
