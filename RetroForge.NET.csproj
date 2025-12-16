@@ -11,13 +11,15 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="add.ps1" />
+    <None Remove="deploy.ps1" />
     <None Remove="licence" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Aspose.3D" Version="23.9.0" />
+    <None Remove="rem.ps1" />
+    <PackageReference Include="Aspose.3D" Version="25.12.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="NUnit" Version="4.4.0" />
     <PackageReference Include="OpenTK" Version="5.0.0-pre.15" />
     <PackageReference Include="shaderc.net" Version="0.1.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+    <PackageReference Include="StbImageSharp" Version="2.30.15" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenTK.Windowing.Desktop;
+﻿using OpenTK.Windowing.Desktop;
 
 namespace RetroForge.NET
 {

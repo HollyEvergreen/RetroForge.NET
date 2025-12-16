@@ -10,24 +10,30 @@ public class Logger
     public static void Log(string msg, char end = '\n')
     {
         Console.ForegroundColor = defaultColor;
-        Write(msg);
+        Write(msg, end);
     }
     public static void Log(ConsoleColor _override, string msg, char end = '\n')
     {
         Console.ForegroundColor = _override;
-        Write(msg);
+        Write(msg, end);
         Console.ForegroundColor = defaultColor;
     }
     public static void Warn(string msg, char end = '\n')
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Write(msg);
+        Write(msg, end);
         Console.ForegroundColor = defaultColor;
     }
     public static void Error(string msg, char end = '\n')
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Write(msg);
+        Write(msg, end);
+        Console.ForegroundColor = defaultColor;
+    }
+    public static void Error(Exception err)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write($"{err.GetType()} => {err.Source}\n{err.Message}");
         Console.ForegroundColor = defaultColor;
     }
 
