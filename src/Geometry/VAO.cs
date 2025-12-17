@@ -1,8 +1,4 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using RetroForge.NET.Geometry;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RetroForge.NET.Geometry
 {
@@ -25,7 +21,7 @@ namespace RetroForge.NET.Geometry
             return this;
         }
 
-        public VAO SetAttribPointer<_Type>(uint index, int size, nint offset = 0, bool normalised = false)
+        public VAO SetAttribPointer<_Type>(uint index, int size, int stride_pad = 0, nint offset = 0, bool normalised = false)
         {
             Type T = typeof(_Type);
             VertexAttribPointerType GL_T = T.Name switch
@@ -38,10 +34,11 @@ namespace RetroForge.NET.Geometry
                 _ => throw new NotSupportedException("unsupported type"),
             };
             int tsize = 0;
-            unsafe { tsize = sizeof(_Type) * size; }
+            unsafe { tsize = sizeof(_Type); }
+            int stride = tsize * (size + stride_pad);
             GL.BindVertexArray(ID);
             GL.BindBuffer(BufferTarget.ArrayBuffer, MeshBuffers[0].VertexBufferID);
-            GL.VertexAttribPointer(index, size, GL_T, false, tsize, offset);
+            GL.VertexAttribPointer(index, size, GL_T, false, stride, offset*tsize);
             GL.EnableVertexAttribArray(index);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, MeshBuffers[0].ElementBufferID);
             GL.BindVertexArray(0);

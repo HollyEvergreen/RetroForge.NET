@@ -13,7 +13,6 @@ public struct Texture
 
     public readonly ImageResult? Img => ImageResult.FromMemory(Data, components);
 
-	
 	public Texture(string path, bool upload_to_gpu = true)
 	{
 		StbImage.stbi_set_flip_vertically_on_load(1);
@@ -22,7 +21,7 @@ public struct Texture
 		if (upload_to_gpu == true) UploadToGPU(image);
 		else Logger.Warn($"LOADED {path} BUT DID NOT UPLOAD TO GPU");
 	}
-	unsafe void UploadToGPU(ImageResult? image = null)
+	public unsafe void UploadToGPU(ImageResult? image = null)
 	{
 		image ??= Img; // sets image to the currently stored image if no image is supplied
 		ID = GL.GenTexture();
@@ -40,4 +39,17 @@ public struct Texture
 				ptr
 			);
 	}
+    public readonly void Bind()
+    {
+        GL.ActiveTexture(TextureUnit.Texture0);
+		var err = GL.GetError();
+		if (err != ErrorCode.NoError)
+			Logger.Error($"{err}");
+        GL.BindTexture(TextureTarget.Texture2d, ID);
+    }
+
+    public void Unbind()
+    {
+        GL.BindTexture(TextureTarget.Texture2d, 0);
+    }
 }

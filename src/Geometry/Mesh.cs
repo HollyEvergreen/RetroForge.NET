@@ -2,6 +2,7 @@
 
 //3D format demonstration is simple
 using RetroForge.NET;
+using System.Numerics;
 
 namespace RetroForge.NET.Geometry;
 
@@ -20,10 +21,11 @@ public struct Triangle(int _1, int _2, int _3)
     }
 };
 
-public struct MeshBlock(Vertex[] vertices, Triangle[] faces)
+public struct MeshBlock(Vertex[] vertices, Triangle[] faces, Vector2[] TexCoords)
 {
     public Vertex[] vertices = vertices;
     public Triangle[] faces = faces;
+    public Vector2[] texCoords = TexCoords;
 };
 
 public struct GLMesh
@@ -44,6 +46,12 @@ public struct GLMesh
                 [
                     (3, 2, 0),
                     (0, 1, 2)
+                ],
+                [
+                    new(0, 1),
+                    new(1, 1),
+                    new(1, 0),
+                    new(0, 0),
                 ]
             )
         );
@@ -62,19 +70,23 @@ public struct GLMesh
     }
     public void DebugTris()
     {
-        int i = 0;
         var verts = MeshBlocks[0].vertices;
-        foreach (var tri in MeshBlocks[0].faces)
+        var coords = MeshBlocks[0].texCoords;
+        var tris = MeshBlocks[0].faces;
+        for (int i = 0; i < MeshBlocks[0].faces.Length; i++)
         {
-            i++;
+            var tri = tris[i];
             var vert = verts[tri._1];
-            Logger.Log($"tri  {i}: {vert.x}:{vert.y}:{vert.z}");
+            var coord = coords[tri._1];
+            Logger.Log($"tri  {i}: {vert.x}:{vert.y}:{vert.z} // {coord.X}:{coord.Y}");
 
             vert = verts[tri._2];
-            Logger.Log($"tri {i}: {vert.x}:{vert.y}:{vert.z}");
+            coord = coords[tri._2];
+            Logger.Log($"tri {i}: {vert.x}:{vert.y}:{vert.z} // {coord.X}:{coord.Y}");
 
             vert = verts[tri._3];
-            Logger.Log($"tri {i}: {vert.x}:{vert.y}:{vert.z}");
+            coord = coords[tri._3];
+            Logger.Log($"tri {i}: {vert.x}:{vert.y}:{vert.z} // {coord.X}:{coord.Y}");
         }
     }
 }

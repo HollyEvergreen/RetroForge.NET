@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Text;
+
 namespace RetroForge.NET;
 
 public class Logger
@@ -48,5 +51,20 @@ public class Logger
     public static void ResetConsole()
     {
         Console.ResetColor();
+    }
+
+    public static void LogArray<T>(T[] array, string name = "array")
+    {
+        StringBuilder msg = new(array.Length * 32);
+        int i = 0;
+        msg.Append($"{array} = [\n\t");
+        foreach (T element in array)
+        {
+            msg.Append($"{element}, ");
+            i++;
+            i %= 16;
+            if (i == 0) msg.Append("\n\t");
+        }
+        Log(msg.ToString());
     }
 }
